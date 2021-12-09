@@ -1,19 +1,13 @@
 // alert("Hello from js!");
-var bt = document.querySelectorAll("button");
-
-for (var i = 0; i < bt.length; i++) {
-  bt[i].addEventListener("click", function () {
-    var innerText = this.innerText;
-    makeSound(innerText);
-    animation(innerText);
-  });
-}
-
-document.addEventListener("keydown", function (event) {
-makeSound(event.key);
-animation(event.key);
-})
-
+$("button").click(function () {
+  var innerText = $(this).text();
+  makeSound(innerText);
+  animation(innerText);
+});
+$("body").keydown(function (event) {
+  makeSound(event.key);
+  animation(event.key);
+});
 function makeSound(key) {
   switch (key) {
     case "w":
@@ -46,14 +40,15 @@ function makeSound(key) {
       break;
 
     default:
-      console.log(innerText);
   }
 }
 
 function animation(key) {
-    var currbtn = document.querySelector("."+key);
-    currbtn.classList.add("pressed");
+  var keys = ["a", "s", "d", "w", "j", "k", "l"];
+  if (keys.includes(key)) {
+    $("." + key).addClass("pressed");
     setTimeout(function () {
-    currbtn.classList.remove("pressed");
-    },100);
+      $("." + key).removeClass("pressed");
+    }, 100);
+  }
 }
